@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { Error404Component } from './errors/404.component';
@@ -16,6 +16,7 @@ import { UserModule } from './user/user.module';
 
 
 
+
 @NgModule({
   declarations: [
     EventsAppComponent,
@@ -24,16 +25,19 @@ import { UserModule } from './user/user.module';
     NavBarComponent,
     EventDetailsComponent,
     CreateEventComponent,
-    Error404Component
+    Error404Component,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    UserModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'events/new', component: CreateEventComponent, canDeactivate: ['canDeactivateCreateEvent']},
       { path : 'events', component: EventsListComponent, resolve: {events:EventListResolver} },
       { path: 'events/:id', component: EventDetailsComponent,canActivate:[EventRouteActivator] },
-      { path: 'user', loadChildren: './user/user.module#UserModule'}, //lazy loading
+      //{ path: 'user', component: UserModule},
+      //{ path: 'user', loadChildren: './user/user.module#UserModule'}, //lazy loading
       //{ path: 'user', loadChildren: () => UserModule}, //lazy loading
       { path : 'error', component: Error404Component },
       { path : '', redirectTo:'/events', pathMatch: 'full'},

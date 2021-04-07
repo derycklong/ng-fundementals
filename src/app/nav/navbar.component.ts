@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { SearchService } from '../events/shared/search.service';
+import { AuthService } from '../user/auth.service';
 
 @Component({
     selector: 'nav-bar',
@@ -18,7 +19,10 @@ import { SearchService } from '../events/shared/search.service';
 export class NavBarComponent {
     searchItem: string ='';
 
-    constructor(private searchService:SearchService){}
+    constructor(private searchService:SearchService, public authService:AuthService){}
+
+    
+    isAuth = !!this.authService.currentUser;
 
     search(){
         this.searchService.search.emit(this.searchItem);
