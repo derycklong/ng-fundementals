@@ -1,14 +1,17 @@
 <div>
-    <h1>Edit Your Profildde </h1>
+    <h1>Edit Your Profile </h1>
     <hr>
     <div class="col-md-4">
       <form [formGroup]="profileForm" (ngSubmit)="saveProfile(profileForm.value)" autocomplete="off">
-        <div class="form-group">
+        <div class="form-group" [ngClass]="{ 'error': !firstNameValidated() }">
           <label for="firstName">First Name:</label>
+          <em *ngIf="!firstNameValidated() && this.profileForm.controls.firstName.errors.required"> Required </em>
+          <em *ngIf="!firstNameValidated() && this.profileForm.controls.firstName.errors.pattern"> Must start with a letter </em>
           <input formControlName="firstName" id="firstName" type="text" class="form-control" placeholder="First Name..." />
         </div>
-        <div class="form-group">
+        <div class="form-group" [ngClass]="{ 'error': !lastNameValidated() }">
           <label for="lastName">Last Name:</label>
+          <em *ngIf="!lastNameValidated()"> Required </em>
           <input formControlName="lastName" id="lastName" type="text" class="form-control" placeholder="Last Name..." />
         </div>
   
