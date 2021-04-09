@@ -6,11 +6,13 @@ import { Error404Component } from './errors/404.component';
 
 import { EventsAppComponent } from './events-app.component';
 import { CreateEventComponent } from './events/create-event.component';
+import { CreateSessionComponent } from './events/event-details/create-session.component';
 import { EventDetailsComponent } from './events/event-details/event-details.component';
 import { EventRouteActivator } from './events/event-details/event-route-activator.service';
 import { EventThumbnailComponent } from './events/event-thumbnail.component';
 import { EventListResolver } from './events/events-list-resolver.service';
 import { EventsListComponent } from './events/events-list.component';
+
 import { NavBarComponent } from './nav/navbar.component';
 import { UserModule } from './user/user.module';
 
@@ -26,6 +28,7 @@ import { UserModule } from './user/user.module';
     EventDetailsComponent,
     CreateEventComponent,
     Error404Component,
+    CreateSessionComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import { UserModule } from './user/user.module';
       { path: 'events/new', component: CreateEventComponent, canDeactivate: ['canDeactivateCreateEvent']},
       { path : 'events', component: EventsListComponent, resolve: {events:EventListResolver} },
       { path: 'events/:id', component: EventDetailsComponent,canActivate:[EventRouteActivator] },
+      { path: 'events/session/new', component: CreateSessionComponent },
       //{ path: 'user', component: UserModule},
       //{ path: 'user', loadChildren: './user/user.module#UserModule'}, //lazy loading
       //{ path: 'user', loadChildren: () => UserModule}, //lazy loading

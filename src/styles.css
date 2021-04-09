@@ -35,3 +35,6 @@
   .toast-warning {
     background-color: #f89406;
   }
+
+  em { float:right; color:#E05C65; padding-left:10px; }
+  .error input, .error textarea, .error select { background-color:#E3C3C5 }
