@@ -18,7 +18,44 @@
           <strong>Address:</strong><br />
           {{event?.location?.address}}<br />
           {{event?.location?.city}}, {{event?.location?.country}}
+          {{event?.session}}
         </address>
       </div>
     </div>
+
+    <hr>
+
+    <div class="row">
+      <div class="col-md-2">
+        <h3 style="margin:0px">Sessions</h3>
+      </div>
+      <div class="col-md-2">
+        <a (click)="addSession()">Add Sessions</a>
+      </div>
+    </div>
+    
+    <!-- if you prefer not to use nested component -->
+    <!-- <div class="row" *ngFor="let session of event?.sessions"> -->
+    <!-- <div class="row" *ngFor="let session of sessions">
+      <span (click)="handleSessionClick(session.name)">
+        <div class="col-md-10" >
+          <div class="well">
+              <h1>dasd</h1>
+              <h4>{{session.name}}</h4>
+              <h6>{{session.presenter}}</h6>
+              <span>Duration: {{session.duration}}</span><br />
+              <span>Level: {{session.level}}</span>
+              <p>{{session.abstract}}</p>
+          </div>
+        </div>
+      </span>
+    </div> -->
+
+
+    <!-- will try to build this within the same page instead of building another component -->
+    <session-list *ngIf="!addMode" [sessions]="event?.sessions" ></session-list>
+    <create-session *ngIf="addMode" (EmitsaveNewSession)="saveNewSession($event)" (EmitcancelNewSession)="cancelNewSession()"></create-session>
+    
+
+
   </div>

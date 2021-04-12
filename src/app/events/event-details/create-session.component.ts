@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, Output,EventEmitter } from '@angular/core'
+import { fillProperties } from '@angular/core/src/util/property'
 import { FormControl, FormGroup, Validators} from '@angular/forms'
 import { Router } from '@angular/router'
 import { ISession } from '../events'
 import { restrictedWords } from '../shared/restricted-words.validator'
 
 @Component({
+    selector:'create-session',
     templateUrl:'./create-session.component.html'
 })
 
 
 export class CreateSessionComponent implements OnInit{
+    @Output() EmitsaveNewSession = new EventEmitter()
+    @Output() EmitcancelNewSession = new EventEmitter()
     newSessionForm: FormGroup
     name: FormControl
     presenter: FormControl
@@ -31,7 +35,6 @@ export class CreateSessionComponent implements OnInit{
             duration: this.duration,
             level: this.level,
             abstract: this.abstract
-
         })
     }
 
@@ -48,8 +51,8 @@ export class CreateSessionComponent implements OnInit{
                 abstract: formValues.abstract,
                 voters: []
             }
-
-            this.route.navigate(['events'])
+            this.EmitsaveNewSession.emit(session)
+            //this.route.navigate(['events'])
         }
         else{
             Object.keys(this.newSessionForm.controls).forEach(key => { //loop thru the entire form and mark all the controls as dirty
@@ -58,9 +61,12 @@ export class CreateSessionComponent implements OnInit{
             console.log('you may not pass')
         }
 
-
-
     }
+
+    cancelSession(){
+        this.EmitcancelNewSession.emit()
+    }
+
 
 
 
