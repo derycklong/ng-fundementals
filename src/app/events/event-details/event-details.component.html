@@ -53,8 +53,8 @@
 
 
     <!-- will try to build this within the same page instead of building another component -->
-    <session-list *ngIf="!addMode" [sessions]="event?.sessions" ></session-list>
-    <create-session *ngIf="addMode" (EmitsaveNewSession)="saveNewSession($event)" (EmitcancelNewSession)="cancelNewSession()"></create-session>
+    <session-list *ngIf="!addMode" (emitEditSession)="getEditSession($event)" [sessions]="event?.sessions" ></session-list>
+    <create-session *ngIf="addMode" [editSession]="session" [newState]="newState" (EmitsaveNewSession)="saveNewSession($event)" (EmitcancelNewSession)="cancelNewSession()"></create-session>
     
 
 

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output,EventEmitter } from '@angular/core';
 import { ISession } from '../events';
 
 @Component({
@@ -9,9 +9,11 @@ import { ISession } from '../events';
 
 export class SessionListComponent {
     @Input() sessions:ISession[]
+    @Output() emitEditSession = new EventEmitter()
 
-    handleSessionClick(sid:string){ // trying to buuild a function to click and edit the session list
-        console.log(sid)
+    handleSessionClick(session:ISession){ // trying to buuild a function to click and edit the session list
+        this.emitEditSession.emit(session)
+        console.log(session)
         
     }
 }
