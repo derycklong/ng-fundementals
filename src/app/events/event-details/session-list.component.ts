@@ -13,7 +13,7 @@ export class SessionListComponent {
 
     handleSessionClick(session:ISession){ // trying to buuild a function to click and edit the session list
         this.emitEditSession.emit(session)
-        console.log(session)
+        //console.log(session)
         
     }
 }

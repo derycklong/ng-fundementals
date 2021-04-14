@@ -27,7 +27,7 @@ export class EventDetailsComponent implements OnInit{
     ngOnInit() {
         const id = Number(this.route.snapshot.paramMap.get('id'));
         this.event = this.eventService.getEvent(id);
-        console.log(this.sessions)
+        console.log(this.event)
     }
 
     addSession(){
@@ -36,7 +36,7 @@ export class EventDetailsComponent implements OnInit{
     }
 
     saveNewSession(session:ISession){
-        if (!session.id){
+        if (!session.id && this.event.sessions){
             console.log('id is ' + session.id)
             const nextId = Math.max.apply(null, this.event.sessions.map(s => s.id));
             console.log(this.event.sessions.map(s=>s.id))
@@ -44,7 +44,15 @@ export class EventDetailsComponent implements OnInit{
             this.event.sessions.push(session)
             this.eventService.updateEvent(this.event) // is this necc
         }
-        else{
+
+        else if (!this.event.sessions){
+            session.id = 1
+            this.event.sessions = [] //need to initilize to an empty array since for this case event.sessions is empty
+            this.event.sessions.push(session)
+            this.eventService.updateEvent(this.event)
+        }
+
+        else if (session.id) {
             console.log('your final id is' + session.id)
             let index = this.event.sessions.findIndex(x => x.id == session.id)
             this.event.sessions[index] = session
