@@ -34,9 +34,10 @@ export class EventService{
       var term = searchTerm.toLocaleLowerCase();
 
       EVENTS.forEach(event =>{
-        var matchingSessions = event.sessions.filter( sessions => {
-          sessions.name.toLocaleLowerCase().includes(term)
+        var matchingSessions:ISession[] = event.sessions.filter( session => {
+          return session.name.toLocaleLowerCase().includes(term)
         })
+    
         matchingSessions = matchingSessions.map((session:any) => {
           session.eventID = event.id
           return session;
@@ -48,7 +49,9 @@ export class EventService{
       setTimeout(() => {
         emitter.emit(results)
       },100)
+
       return emitter
+      
 
     }
 
