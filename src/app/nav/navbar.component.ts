@@ -1,4 +1,7 @@
 import { Component } from '@angular/core'
+import { Observable } from 'rxjs';
+import { ISession } from '../events/events';
+import { EventService } from '../events/shared/event.service';
 import { SearchService } from '../events/shared/search.service';
 import { AuthService } from '../user/auth.service';
 
@@ -17,9 +20,10 @@ import { AuthService } from '../user/auth.service';
 
 
 export class NavBarComponent {
-    searchItem: string ='';
+    searchItem: string =''
+    foundSessions:ISession
 
-    constructor(private searchService:SearchService, public authService:AuthService){}
+    constructor(private searchService:SearchService, public authService:AuthService, private eventService:EventService){}
 
     
     isAuth = !!this.authService.currentUser;
@@ -27,6 +31,14 @@ export class NavBarComponent {
     search(){
         this.searchService.search.emit(this.searchItem);
         console.log(this.searchItem)
+    }
+
+    searchSessions(searchTerm){
+        this.eventService.searchSessions(searchTerm).subscribe( sessions => {
+             this.foundSessions = sessions
+             console.log(this.foundSessions)
+            })
+        
     }
 
 }

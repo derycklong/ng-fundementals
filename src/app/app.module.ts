@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { CollapsibleWellComponent } from './common/collapsible-well.component';
 import { Error404Component } from './errors/404.component';
 
 import { EventsAppComponent } from './events-app.component';
@@ -13,11 +14,13 @@ import { SessionListComponent } from './events/event-details/session-list.compon
 import { EventThumbnailComponent } from './events/event-thumbnail.component';
 import { EventListResolver } from './events/events-list-resolver.service';
 import { EventsListComponent } from './events/events-list.component';
+import { DurationPipe } from './events/shared/duration.pipe';
 
 import { NavBarComponent } from './nav/navbar.component';
 import { UserModule } from './user/user.module';
+import { TOASTR_TOKEN,Toastr } from './common/toastr.service'
 
-
+let toastr:Toastr = window['toastr']
 
 
 @NgModule({
@@ -30,7 +33,9 @@ import { UserModule } from './user/user.module';
     CreateEventComponent,
     Error404Component,
     CreateSessionComponent,
-    SessionListComponent
+    SessionListComponent,
+    CollapsibleWellComponent,
+    DurationPipe
   ],
   imports: [
     BrowserModule,
@@ -52,10 +57,12 @@ import { UserModule } from './user/user.module';
     ]),
   ],
   
-  providers: [{
-    provide: 'canDeactivateCreateEvent',
-    useValue: checkDirtyState
-  }],
+  providers: [
+  { provide: 'canDeactivateCreateEvent',
+    useValue: checkDirtyState },
+  { provide: TOASTR_TOKEN,
+    useValue: toastr}
+  ],
   bootstrap: [EventsAppComponent]
 })
 export class AppModule { }

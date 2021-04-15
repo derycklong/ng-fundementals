@@ -6,13 +6,13 @@ import { Component,Input, Output,EventEmitter } from '@angular/core'
     template:`
     <div class="well hoverwell thumbnail" [routerLink]="['/events',event.id]">
         <h2>{{event?.name}}</h2>
-        <div>Date : {{event?.date}}</div>
+        <div>Date : {{event?.date | date:'d/M/y'}}</div>
         <div [ngClass]="getStartTimeClass()" [ngSwitch]="event?.time">Time: {{event?.time}}
             <span *ngSwitchCase="'8:00 am'">(Early Start)</span>
             <span *ngSwitchCase="'10:00 am'">(Late Start)</span>
             <span *ngSwitchDefault>(Normal Start)</span>
         </div>
-        <div [ngStyle]="getPriceClass()">Price: {{event?.price | currency}}</div>
+        <div [ngStyle]="getPriceClass()">Price: {{event?.price | currency:'Usd'}}</div>
         <div *ngIf='event?.location'>
             <span>Location: {{event?.location?.address}}</span>
             <span class="pad-left">{{event?.location?.city}}, {{event?.location?.country}}</span>

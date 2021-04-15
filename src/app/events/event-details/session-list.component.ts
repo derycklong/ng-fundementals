@@ -1,4 +1,4 @@
-import { Component, Input, Output,EventEmitter } from '@angular/core';
+import { Component, Input, Output,EventEmitter, OnChanges } from '@angular/core';
 import { ISession } from '../events';
 
 @Component({
@@ -7,13 +7,44 @@ import { ISession } from '../events';
 })
 
 
-export class SessionListComponent {
+export class SessionListComponent implements OnChanges{
     @Input() sessions:ISession[]
     @Output() emitEditSession = new EventEmitter()
+    @Input() filterBy:string
+    @Input() sortBy:string
+    visibleSessions:ISession[] = []
+
+    ngOnChanges(){
+        if (this.sessions){
+            this.filterSessions(this.filterBy)
+            this.sortBy === 'name' ? this.visibleSessions.sort((a,b) => {
+                if (a.name > b.name ) return 1
+                else if (a.name === b.name) return 0
+                else return -1
+            })
+            : this.visibleSessions.sort((a,b) => {
+                return b.voters.length - a.voters.length
+            })
+        }
+    }
 
     handleSessionClick(session:ISession){ // trying to buuild a function to click and edit the session list
         this.emitEditSession.emit(session)
-        //console.log(session)
-        
+        //console.log(session)    
+    }
+
+    filterSessions(value:string){
+        if (value==='all'){
+            this.visibleSessions = this.sessions.slice(0)
+        }
+        else {
+            this.visibleSessions = this.sessions.filter( sessions => {
+                return sessions.level.toLocaleLowerCase() === value
+            })
+        }
+    }
+
+    handleNotify(){
+       
     }
 }

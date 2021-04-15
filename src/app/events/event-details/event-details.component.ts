@@ -1,6 +1,5 @@
 import { Component, OnInit, Output,EventEmitter } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { ToastrService } from "src/app/common/toastr.service";
 import { ISession } from "../events";
 import { EventService } from "../shared/event.service";
 
@@ -21,8 +20,10 @@ export class EventDetailsComponent implements OnInit{
     addMode:boolean
     newState:boolean
     @Output() emitNewState = new EventEmitter
+    filterBy:string = 'all'
+    sortBy:string= 'votes'
     
-    constructor(private eventService:EventService, private route:ActivatedRoute, private toastrService:ToastrService){}
+    constructor(private eventService:EventService, private route:ActivatedRoute){}
     
     ngOnInit() {
         const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -70,6 +71,5 @@ export class EventDetailsComponent implements OnInit{
         this.session=session
         this.addMode = true
     }
-
 
 }

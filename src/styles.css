@@ -39,3 +39,7 @@
   em { float:right; color:#E05C65; padding-left:10px; }
   .error input, .error textarea, .error select { background-color:#E3C3C5 }
   a { cursor: pointer;}
+
+  .button-color{
+    color:black;
+  }

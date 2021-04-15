@@ -30,9 +30,10 @@
             </li>
           </ul>
         </div>
-        <form id="searchForm"  class="navbar-form navbar-right"  >
+        <form id="searchForm" (ngSubmit)="searchSessions(searchItem)" class="navbar-form navbar-right"  >
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search Sessions" (keyup)="search()" [(ngModel)]='searchItem' [ngModelOptions]="{standalone: true}">
+            <!-- <input type="text" class="form-control" placeholder="Search Sessions" (keyup)="search()" [(ngModel)]='searchItem' [ngModelOptions]="{standalone: true}"> -->
+            <input [(ngModel)]="searchItem" [ngModelOptions]="{standalone: true}" type="text" class="form-control" placeholder="Search Sessions">
           </div>
           <button class="btn btn-default" >
             Search
