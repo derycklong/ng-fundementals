@@ -44,6 +44,7 @@ export class CreateSessionComponent implements OnInit{
             abstract: this.abstract
         })
         console.log('New State: ' + this.newState)
+        console.log(this.editSession)
 
         if (this.editSession && !this.newState){
             this.id.setValue(this.editSession.id)
@@ -61,6 +62,7 @@ export class CreateSessionComponent implements OnInit{
             this.duration.setValue('')
             this.level.setValue('')
             this.abstract.setValue('')
+            
         }
             
     }
@@ -89,7 +91,7 @@ export class CreateSessionComponent implements OnInit{
                 level: formValues.level,
                 presenter: formValues.presenter,
                 abstract: formValues.abstract,
-                voters: []
+                voters: this.editSession.voters
             }
             console.log('logged id : ' + formValues.id)
             console.log('logged name : ' + formValues.name)
@@ -105,10 +107,13 @@ export class CreateSessionComponent implements OnInit{
             console.log('you may not pass')
         }
 
+        
+
     }
 
     cancelSession(){
         this.EmitcancelNewSession.emit()
+        
         //location.reload()
     }
 

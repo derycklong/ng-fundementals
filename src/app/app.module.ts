@@ -19,8 +19,11 @@ import { DurationPipe } from './events/shared/duration.pipe';
 import { NavBarComponent } from './nav/navbar.component';
 import { UserModule } from './user/user.module';
 import { TOASTR_TOKEN,Toastr } from './common/toastr.service'
+import { JQUERY_TOKEN } from './common/jquery.service'
+import { SimpleModalComponent } from './common/simple-modal.component';
 
 let toastr:Toastr = window['toastr']
+let jquery = window['$']
 
 
 @NgModule({
@@ -35,6 +38,7 @@ let toastr:Toastr = window['toastr']
     CreateSessionComponent,
     SessionListComponent,
     CollapsibleWellComponent,
+    SimpleModalComponent,
     DurationPipe
   ],
   imports: [
@@ -58,10 +62,13 @@ let toastr:Toastr = window['toastr']
   ],
   
   providers: [
-  { provide: 'canDeactivateCreateEvent',
-    useValue: checkDirtyState },
-  { provide: TOASTR_TOKEN,
-    useValue: toastr}
+    { provide: 'canDeactivateCreateEvent',
+      useValue: checkDirtyState },
+    { provide: TOASTR_TOKEN,
+      useValue: toastr },
+    { provide: JQUERY_TOKEN,
+      useValue: jquery },
+
   ],
   bootstrap: [EventsAppComponent]
 })

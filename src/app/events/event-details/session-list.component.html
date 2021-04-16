@@ -3,9 +3,9 @@
     <!-- <span (click)="handleSessionClick(session)"> -->
         <div class="col-md-11">
             
-            <collapsible-well>
+            <collapsible-well> 
                 <div well-title>
-                    {{session.name}}
+                    <h4>{{session.name}}</h4>
                     <i *ngIf="session.voters.length > 3" class="glyphicon glyphicon-fire"></i>
                 </div>
                 <div well-body>

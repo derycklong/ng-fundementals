@@ -1,9 +1,10 @@
-import { Component } from '@angular/core'
-import { Observable } from 'rxjs';
+import { Component, Inject, Output, EventEmitter } from '@angular/core'
 import { ISession } from '../events/events';
 import { EventService } from '../events/shared/event.service';
 import { SearchService } from '../events/shared/search.service';
 import { AuthService } from '../user/auth.service';
+import { JQUERY_TOKEN } from '../common/jquery.service'
+
 
 @Component({
     selector: 'nav-bar',
@@ -21,9 +22,10 @@ import { AuthService } from '../user/auth.service';
 
 export class NavBarComponent {
     searchItem: string =''
-    foundSessions:ISession
+    foundSessions:ISession[]
+    @Output() EmitSearchSession = new EventEmitter()
 
-    constructor(private searchService:SearchService, public authService:AuthService, private eventService:EventService){}
+    constructor(@Inject(JQUERY_TOKEN) private $:any, private searchService:SearchService, public authService:AuthService, private eventService:EventService){}
 
     
     isAuth = !!this.authService.currentUser;
@@ -37,8 +39,20 @@ export class NavBarComponent {
         this.eventService.searchSessions(searchTerm).subscribe( sessions => {
              this.foundSessions = sessions
              console.log(this.foundSessions)
-            })
-        
+        })
+
+        this.$('#simple-modal2').modal({});
     }
+
+    emitSession(id:number){
+        this.EmitSearchSession.emit(id) 
+        console.log(id)
+        //was trying to build a function to highlight the session after doing the search
+        //cant use the @output eventemitter method as there is no relationship
+        //need to build a service to communicate
+        //https://stackoverflow.com/questions/44414226/angular-4-pass-data-between-2-not-related-components   
+    }
+
+
 
 }

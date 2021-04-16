@@ -1,7 +1,6 @@
 import { Injectable,EventEmitter } from "@angular/core";
-import {IEvent, ISession} from '../events';
+import { ISession } from '../events';
 import { Subject } from 'rxjs'
-import { emit } from "process";
 
 @Injectable({
     providedIn:'root'
@@ -51,11 +50,7 @@ export class EventService{
       },100)
 
       return emitter
-      
-
     }
-
-
 }
 
 const EVENTS  = [
