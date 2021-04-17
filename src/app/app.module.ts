@@ -21,6 +21,8 @@ import { UserModule } from './user/user.module';
 import { TOASTR_TOKEN,Toastr } from './common/toastr.service'
 import { JQUERY_TOKEN } from './common/jquery.service'
 import { SimpleModalComponent } from './common/simple-modal.component';
+import { UpvoteComponent } from './events/event-details/upvote.component';
+import { LocationValidator } from './events/location-validator.directive';
 
 let toastr:Toastr = window['toastr']
 let jquery = window['$']
@@ -39,7 +41,9 @@ let jquery = window['$']
     SessionListComponent,
     CollapsibleWellComponent,
     SimpleModalComponent,
-    DurationPipe
+    DurationPipe,
+    UpvoteComponent,
+    LocationValidator
   ],
   imports: [
     BrowserModule,

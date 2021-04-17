@@ -69,7 +69,7 @@
 
 
     <!-- will try to build this within the same page instead of building another component -->
-    <session-list *ngIf="!addMode" [filterBy]="filterBy" [sortBy]="sortBy" (EmitSearchSession)="getEmitSession($event)" (emitEditSession)="getEditSession($event)" [sessions]="event?.sessions" ></session-list>
+    <session-list *ngIf="!addMode" [filterBy]="filterBy" [sortBy]="sortBy" (emitEditSession)="getEditSession($event)" [sessions]="event?.sessions" ></session-list>
     <create-session *ngIf="addMode" [editSession]="session" [newState]="newState" (EmitsaveNewSession)="saveNewSession($event)" (EmitcancelNewSession)="cancelNewSession()"></create-session>
     
 

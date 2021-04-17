@@ -1,7 +1,10 @@
-import { Component, OnInit, Output,EventEmitter } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { ISession } from "../events";
-import { EventService } from "../shared/event.service";
+import { Component, OnInit, Output,EventEmitter, OnDestroy } from "@angular/core"
+import { ActivatedRoute } from "@angular/router"
+import { Subscription } from "rxjs";
+import { DataService } from "../../common/data.service";
+import { ISession } from "../events"
+import { EventService } from "../shared/event.service"
+
 
 
 @Component({
@@ -13,7 +16,7 @@ import { EventService } from "../shared/event.service";
     
 })
 
-export class EventDetailsComponent implements OnInit{
+export class EventDetailsComponent implements OnInit, OnDestroy{
     event:any;
     sessions:ISession[]
     session:ISession
@@ -22,8 +25,10 @@ export class EventDetailsComponent implements OnInit{
     @Output() emitNewState = new EventEmitter
     filterBy:string = 'all'
     sortBy:string= 'votes'
+    id:Number
+    sub: Subscription
     
-    constructor(private eventService:EventService, private route:ActivatedRoute){}
+    constructor(private eventService:EventService, private route:ActivatedRoute, private data:DataService){}
     
     ngOnInit() {
         // const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -34,9 +39,18 @@ export class EventDetailsComponent implements OnInit{
             this.addMode=false
             
         })
+
+        this.sub = this.data.currentMessage.subscribe(id => {
+            console.log(id)
+        })
+        //this.sub.unsubscribe();
         
 
     }
+
+    ngOnDestroy(): void {
+        this.sub.unsubscribe();
+      }
 
     addSession(){
         this.newState = true   //this flag is here because we are sharing update and new in the same page

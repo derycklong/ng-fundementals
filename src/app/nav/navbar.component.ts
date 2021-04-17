@@ -4,6 +4,7 @@ import { EventService } from '../events/shared/event.service';
 import { SearchService } from '../events/shared/search.service';
 import { AuthService } from '../user/auth.service';
 import { JQUERY_TOKEN } from '../common/jquery.service'
+import { DataService } from '../common/data.service'
 
 
 @Component({
@@ -23,10 +24,8 @@ import { JQUERY_TOKEN } from '../common/jquery.service'
 export class NavBarComponent {
     searchItem: string =''
     foundSessions:ISession[]
-    @Output() EmitSearchSession = new EventEmitter()
 
-    constructor(@Inject(JQUERY_TOKEN) private $:any, private searchService:SearchService, public authService:AuthService, private eventService:EventService){}
-
+    constructor(@Inject(JQUERY_TOKEN) private $:any, private searchService:SearchService, public authService:AuthService, private eventService:EventService, private data:DataService){}
     
     isAuth = !!this.authService.currentUser;
 
@@ -45,8 +44,7 @@ export class NavBarComponent {
     }
 
     emitSession(id:number){
-        this.EmitSearchSession.emit(id) 
-        console.log(id)
+        this.data.changeMessage(id.toString())
         //was trying to build a function to highlight the session after doing the search
         //cant use the @output eventemitter method as there is no relationship
         //need to build a service to communicate
