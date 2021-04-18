@@ -1,4 +1,3 @@
-import { toBase64String } from '@angular/compiler/src/output/source_map';
 import { Component, OnInit } from '@angular/core'
 import { EventService } from './shared/event.service'
 import { IEvent } from './events'

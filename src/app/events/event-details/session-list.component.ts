@@ -1,6 +1,8 @@
 import { Component, Input, Output,EventEmitter, OnChanges } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/user/auth.service';
 import { ISession } from '../events';
+import { EventService } from '../shared/event.service';
 import { VoterService } from './voter.service';
 
 @Component({
@@ -16,7 +18,7 @@ export class SessionListComponent implements OnChanges{
     @Input() sortBy:string
     visibleSessions:ISession[] = []
 
-    constructor (private auth:AuthService, private voterService:VoterService){}
+    constructor (private auth:AuthService, private voterService:VoterService, private route:ActivatedRoute){}
     
     ngOnChanges(){
         if (this.sessions){
@@ -30,6 +32,7 @@ export class SessionListComponent implements OnChanges{
                 return b.voters.length - a.voters.length
             })
         }
+        console.log(this.sessions)
     }
 
     handleSessionClick(session:ISession){ // trying to buuild a function to click and edit the session list
@@ -49,11 +52,13 @@ export class SessionListComponent implements OnChanges{
     }
 
     toggleVote(session:ISession){
+        const id = Number(this.route.snapshot.paramMap.get('id'));
+
         if(this.userHasVoted(session)){
-            this.voterService.deleteVoter(session,this.auth.currentUser.userName)
+            this.voterService.deleteVoter(id,session,this.auth.currentUser.userName).subscribe(result => console.log(result))
         }
         else {
-            this.voterService.addVoter(session,this.auth.currentUser.userName)
+            this.voterService.addVoter(id,session,this.auth.currentUser.userName).subscribe(result => console.log(result))
         }
         if(this.sortBy==='votes'){
             this.visibleSessions.sort((a,b) => {

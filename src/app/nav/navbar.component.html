@@ -46,7 +46,7 @@
   <simple-modal closeOnBodyClick="true" title="Matching Sessions">
     <div class="list-group" #modalContainer2>
       <div *ngIf="this.foundSessions?.length > 0">
-        <a class="list-group-item" *ngFor="let session of foundSessions" [routerLink]="['/events',session.eventID]" (click)="emitSession(session.id)">{{session.name}}</a>
+        <a class="list-group-item" *ngFor="let session of foundSessions" [routerLink]="['/events',session.eventId]" (click)="emitSession(session.id)">{{session.name}}</a>
       </div>
       <div *ngIf="this.foundSessions?.length < 1">
         <a class="list-group-item">Nothing Found</a>
