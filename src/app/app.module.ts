@@ -64,6 +64,7 @@ let jquery = window['$']
       { path : '', redirectTo:'/events', pathMatch: 'full'},
       { path : '**', redirectTo:'/events', pathMatch: 'full'},
       
+      
     ]),
   ],
   

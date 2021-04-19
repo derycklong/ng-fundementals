@@ -1,7 +1,7 @@
-import { style } from '@angular/animations';
-import { Component } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { TOASTR_TOKEN,Toastr} from '../common/toastr.service'
 
 @Component({
     templateUrl:'./login.component.html',
@@ -16,12 +16,18 @@ export class LoginComponent{
     password:string
     mouseoverLogin:boolean
 
-    constructor(private authService:AuthService, private router:Router){}
+    constructor(private authService:AuthService, private router:Router, @Inject(TOASTR_TOKEN) private toastr:Toastr){}
 
     login(formValue){
         this.authService.loginUser(formValue.userName,formValue.password)
+            .subscribe(res => {
+                if (res===false){
+                    this.toastr.error('Invalid Login','Please try again')
+                }
+                else this.router.navigate(['events'])
+            })
         //console.log(this.authService.isAuth())
-        this.router.navigate(['events'])
+        
     }
 
     onCancel(){

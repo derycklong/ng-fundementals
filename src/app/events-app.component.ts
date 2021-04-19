@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { userInfo } from 'os';
+import { AuthService } from './user/auth.service';
+import { IUser } from './user/user'
 
 @Component({
   selector: 'events-app',
@@ -9,5 +13,9 @@ import { Component } from '@angular/core';
 
 })
 export class EventsAppComponent {
-  title = 'ng-fundementals';
+  constructor(private auth:AuthService, private route: ActivatedRoute){}
+
+  ngOnInit(){
+    this.auth.checkAuthStatus().subscribe()
+  }
 }
