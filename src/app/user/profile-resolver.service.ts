@@ -12,7 +12,7 @@ export class ProfileResolver implements Resolve<any>{
 
     constructor (private auth:AuthService){}
     resolve(){
-        console.log('in resolver')
+        console.log('In Profile Resolver')
         return this.auth.checkAuthStatus()
         
     }

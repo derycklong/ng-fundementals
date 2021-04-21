@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { userInfo } from 'os';
 import { AuthService } from './user/auth.service';
-import { IUser } from './user/user'
+
 
 @Component({
   selector: 'events-app',

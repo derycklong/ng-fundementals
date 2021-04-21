@@ -23,7 +23,7 @@ export class ProfileComponent implements OnInit{
   constructor(private authService:AuthService, private router:Router, @Inject(TOASTR_TOKEN) private toastr:Toastr, private route:ActivatedRoute){}
   ngOnInit(){
   
-    //this.route.snapshot.data['checkAuth']
+    console.log(this.route.snapshot.data['profileResolver'].firstName)
     this.firstName = new FormControl(this.authService.currentUser.firstName, [Validators.required, Validators.pattern('[a-zA-Z].*')])
     this.lastName = new FormControl(this.authService.currentUser.lastName, Validators.required)
     this.profileForm = new FormGroup({

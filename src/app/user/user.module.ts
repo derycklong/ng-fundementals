@@ -12,7 +12,7 @@ import { ProfileResolver } from './profile-resolver.service'
         FormsModule,
         ReactiveFormsModule,
         RouterModule.forChild([
-            {path:'user/profile', component:ProfileComponent, resolve: {ProfileResolver} } , //lazy loading
+            {path:'user/profile', component:ProfileComponent, resolve: {profileResolver: ProfileResolver} } , //lazy loading
             {path:'user/login', component:LoginComponent}
         ])
     
